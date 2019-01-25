@@ -222,20 +222,22 @@ function AIPlayerMove() {
     }, []);
 
     // 2. Look for a blocking move, by testing as other players for a win.
-    PlayLocations = gameState.board.reduce((accumulator, rowArray, rowIndex) => {
-        return rowArray.reduce((cellAccumulator, cell, colIndex) => {
-            if (cell === "") {
-                // Test each empty location by setting it as then testing for a win, making sure to clean it out after.
-                gameState.board[rowIndex][colIndex] = LastPlayer;
-                if (TestForWin(gameState.board) === LastPlayer) {
-                    // Add this location as a winning location.
-                    cellAccumulator.push( { row: rowIndex, col: colIndex} );
+    if (PlayLocations.length === 0) {
+        PlayLocations = gameState.board.reduce((accumulator, rowArray, rowIndex) => {
+            return rowArray.reduce((cellAccumulator, cell, colIndex) => {
+                if (cell === "") {
+                    // Test each empty location by setting it as then testing for a win, making sure to clean it out after.
+                    gameState.board[rowIndex][colIndex] = LastPlayer;
+                    if (TestForWin(gameState.board) === LastPlayer) {
+                        // Add this location as a winning location.
+                        cellAccumulator.push({ row: rowIndex, col: colIndex });
+                    };
+                    gameState.board[rowIndex][colIndex] = "";
                 };
-                gameState.board[rowIndex][colIndex] = "";
-            };
-            return cellAccumulator;
-        }, accumulator);
-    }, []);
+                return cellAccumulator;
+            }, accumulator);
+        }, []);
+    };
 
     // 3. If the center location is available, choose it.
     if (PlayLocations.length === 0 && gameState.board[1][1] === "") {
