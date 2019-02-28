@@ -7,6 +7,8 @@
   <title>Tic Tac Toe Pro</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" type="text/css" media="screen" href="main.css" />
+  <!-- development version, includes helpful console warnings -->
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
   <script defer src="main.js"></script>
   <link rel="apple-touch-icon" sizes="57x57" href="icons/apple-icon-57x57.png">
   <link rel="apple-touch-icon" sizes="60x60" href="icons/apple-icon-60x60.png">
@@ -28,31 +30,33 @@
 </head>
 
 <body>
-  <h1>Tic Tac Toe Pro</h1>
-  <div class="board">
-    <div>
-      <div id="00" class="sq bottom right"></div>
-      <div id="01" class="sq bottom right"></div>
-      <div id="02" class="sq bottom "></div>
+  <div id="app">
+    <h1>Tic Tac Toe Pro</h1>
+    <div class="board">
+      <div>
+        <div id="00" class="sq bottom right"></div>
+        <div id="01" class="sq bottom right"></div>
+        <div id="02" class="sq bottom "></div>
+      </div>
+      <div>
+        <div id="10" class="sq bottom right"></div>
+        <div id="11" class="sq bottom right"></div>
+        <div id="12" class="sq bottom"></div>
+      </div>
+      <div>
+        <div id="20" class="sq right"></div>
+        <div id="21" class="sq right"></div>
+        <div id="22" class="sq"></div>
+      </div>
     </div>
-    <div>
-      <div id="10" class="sq bottom right"></div>
-      <div id="11" class="sq bottom right"></div>
-      <div id="12" class="sq bottom"></div>
-    </div>
-    <div>
-      <div id="20" class="sq right"></div>
-      <div id="21" class="sq right"></div>
-      <div id="22" class="sq"></div>
-    </div>
+    <h2 id="Winner">It is {{ gameState.Next }}'s turn.</h2>
+    <button v-on:click="ResetGame" id="resetGameButton">Reset Game</button>
+    <button v-on:click="ResetWinCount" id="resetWinCount">Reset Game Win Count</button>
+    <button v-on:click="AIPlayerMove" id="AIPlayerMove">AI Player Move</button>
+    <h3 id="XWins">X has won {{ gameState.XWinCount }} total times.</h2>
+    <h3 id="OWins">O has won {{ gameState.OWinCount }} total times.</h2>
+    <h3 id="TieWins">Tied games {{ gameState.TieWins }} total times.</h2>
   </div>
-  <h2 id="Winner">It is X's turn.</h2>
-  <button onclick="ResetGame();" id="resetGameButton">Reset Game</button>
-  <button onclick="ResetWinCount();" id="resetWinCount">Reset Game Win Count</button>
-  <button onclick="AIPlayerMove();" id="AIPlayerMove">AI Player Move</button>
-  <h3 id="XWins">X has won 0 total times.</h2>
-  <h3 id="OWins">O has won 0 total times.</h2>
-  <h3 id="TieWins">Tied games 0 total times.</h2>
 </body>
 
 </html>
